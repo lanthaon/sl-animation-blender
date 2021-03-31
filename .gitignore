@@ -1,0 +1,28 @@
+# annotated images
+mp-landmark-annotation/annotated_images/*.png
+
+# virtual environment
+mp-landmark-annotation/venv/
+
+# .idea folder
+mp-landmark-annotation/.idea
+
+# sign videos except one example video
+sign_videos/*
+!sign_videos/Brauchen Sie eine Arbeitsunfähigkeitsbescheinigung II.mov
+
+# exported FBX files except the full dialog
+animation_results/FBX/*
+!animation_results/FBX/daz_avatar_dialog1.fbx
+
+# .blend with animated avatars
+animation_results/Models with baked animations/
+
+# avatar blend files
+avatar/
+
+# .blend1 files
+*.blend1
+
+# misc
+.DS_Store

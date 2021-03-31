@@ -9,6 +9,7 @@ Open "make_bvh_files.blend". Now go to the scripting tab in Blender and open thi
 Run the script and wait for the result. Go to the animation tab and press the play button to see it.
 
 The result can be exported as a BVH file via "File > Export > Motion Capture (.bvh)".
+To make a new BVH file, delete all items in the Scene Collection, change video_file_name and video_file_path and rerun the script.
 """
 
 import bpy, cv2, pathlib

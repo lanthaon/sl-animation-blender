@@ -268,7 +268,7 @@ def get_landmarks(vid_name, frame_list):
         # Convert the BGR image to RGB before processing.
         results = holistic.process(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         
-        # save landmarks in arrays
+        # append landmark arrays for each frame and type to a parent array
         pose_landmarks.append(results.pose_landmarks)
         left_hand_landmarks.append(results.left_hand_landmarks)
         right_hand_landmarks.append(results.right_hand_landmarks)
@@ -289,6 +289,14 @@ def get_video_frames(file_url):
     return frames
 
 
+def isObjectInScene(name):
+    for o in bpy.context.scene.objects:
+        if o.name == name:
+            return True
+
+    return False
+
+
 def load_landmarks_into_scene(landmarks = [], names = [], l_count = 0, first_char = ""):
     for frame in range (0, len(landmarks)):
         lm_for_curr_frame = landmarks[frame]
@@ -301,7 +309,7 @@ def load_landmarks_into_scene(landmarks = [], names = [], l_count = 0, first_cha
                 location = (l.x * 30 * 2, l.y * (20) * 2, l.z * (20) * 2)
                 
                 # check if we need to create the ico sphere for the current landmark for the first time
-                if frame == 0:
+                if not isObjectInScene(name):
                     # create new object
                     bpy.ops.mesh.primitive_ico_sphere_add(enter_editmode=False, align='WORLD', location=location, scale=(0.1, 0.1, 0.1))
                     # rename object

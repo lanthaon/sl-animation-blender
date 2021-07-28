@@ -8,8 +8,7 @@ mp-landmark-annotation/venv/
 mp-landmark-annotation/.idea
 
 # exported FBX files except the full dialog
-animation_results/FBX/*
-!animation_results/FBX/daz_avatar_dialog1.fbx
+animation_results/FBX/
 
 # .blend with animated avatars
 animation_results/Models with baked animations/

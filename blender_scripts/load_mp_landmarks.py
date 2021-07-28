@@ -5,10 +5,12 @@
 The script runs the MediaPipe motion tracking AI on the specified video file and creates bones that move and rotate based on the tracked landmarks.
 
 # How to use this script?
-Open "make_bvh_files.blend". Now go to the scripting tab in Blender and open this script if it is not already there or reload it with "Text > Reload". 
+Open "make_bvh_files.blend" or a create a new Blender file and save it. Do not run the script without saving the file before.
+Now go to the scripting tab in Blender and open this script if it is not already there or reload it with "Text > Reload". 
 Run the script and wait for the result. Go to the animation tab and press the play button to see it.
+If you cannot see any objects, move and rotate around in space until you find them.
 
-The result can be exported as a BVH file via "File > Export > Motion Capture (.bvh)".
+The resulting skeleton can be exported as a BVH file via "File > Export > Motion Capture (.bvh)".
 To make a new BVH file, delete all items in the Scene Collection, change video_file_name and video_file_path and rerun the script.
 """
 

@@ -9,8 +9,9 @@ Make a copy of "animate_avatar.blend" and give the new .blend file a name that f
 Open the .blend file and import the BVH file to be mapped. Now a new armature should appear in the scene collection. 
 Duplicate that armature with copy paste.
 
-Now go to the scripting tab in Blender and open this script if it is not already there or reload it with "Text > Reload". 
-Run the script and wait for the result. Go to the animation tab and press the play button to see it.
+Now go to the scripting tab in Blender and open this script if it is not already there or reload it with "Text > Reload".
+Give arm_title and arm_title_head the correct armature names. Run the script and wait for the result. 
+Go to the animation tab and press the play button to see it.
 
 The result can be baked as an animation. To do this, switch to "Object Mode" and choose "Genesis8Female" in the scene collection. 
 Then go to "Object > Animation > Bake Action". Set the start frame to 0 and check the correct end frame in the animation Tab. 
@@ -237,24 +238,16 @@ def rotate_bvh_armatures(at="", ath=""):
     bpy.data.objects[ath].rotation_euler[0] = -3.14159 # -180d
 
 
-def map_bones(mapping_list = [], armature_title = "", invert_all = False, use_y = True):
+def map_bones(mapping_list = [], armature_title = "", use_y = True):
     for m in mapping_list:
         # set constraint 'COPY_ROTATION'
         bone_const_cr = bpy.data.objects['Genesis8Female'].pose.bones[m[1]].constraints.new('COPY_ROTATION')
         bone_const_cr.target = bpy.data.objects[armature_title]
         bone_const_cr.subtarget = m[0]
-        set_invert_xyz(bone_const_cr, invert_all)
         bone_const_cr.use_y = use_y
         
         if 'ForearmBend' in m[1] or 'neckUpper' in m[1]:
             bone_const_cr.influence = 0.95
-        if invert_all: # we know, this is only set true for collar bones
-            bone_const_cr.influence = 0.0
-            
-def set_invert_xyz(const, invert = False):
-    const.invert_x = invert
-    const.invert_y = invert
-    const.invert_z = invert
             
 
 ########## Execute methods ##########
@@ -266,17 +259,8 @@ rotate_bvh_armatures(at=arm_title, ath=arm_title_head)
 map_bones(mapping_list=pose_bones_mapping, armature_title=arm_title)
 
 ## Map Hand Bones
-# Left
 map_bones(mapping_list=lhand_bones_mapping, armature_title=arm_title)
-# Right
 map_bones(mapping_list=rhand_bones_mapping, armature_title=arm_title)
 
 ## Map Neck Bones
 map_bones(mapping_list=neck_bone_mapping, armature_title=arm_title_head, use_y = False)
-
-## Map Collar Bones
-map_bones(mapping_list=collar_bones_mapping, armature_title=arm_title, invert_all = True)
-
-## Map Face Bones 
-# caution: will create creepy deformations. a different mapping method is needed
-# map_bones(mapping_list=face_bones_mapping, armature_title=arm_title_head)
